@@ -11,17 +11,53 @@ import Explore from "./pages/Explore";
 //dapp
 import { DAppProvider } from "@usedapp/core";
 import NFTDetail from "./pages/NFTDetail";
+import Creators from "./pages/Creators";
 
 ReactDOM.render(
   <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<DAppProvider config={{}}><Home /></DAppProvider>} />
-        <Route path="/create" element={<DAppProvider><Create /></DAppProvider>} />
-        <Route path="/explore" element={<DAppProvider config={{}}><Explore /></DAppProvider>} />
-        <Route path="/detail" element={<DAppProvider config={{}}><NFTDetail /></DAppProvider>} />
-
-      </Routes>
-    </BrowserRouter>,
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <DAppProvider config={{}}>
+            <Home />
+          </DAppProvider>
+        }
+      />
+      <Route
+        path="/create"
+        element={
+          <DAppProvider>
+            <Create />
+          </DAppProvider>
+        }
+      />
+      <Route
+        path="/explore"
+        element={
+          <DAppProvider config={{}}>
+            <Explore />
+          </DAppProvider>
+        }
+      />
+      <Route
+        path="/detail"
+        element={
+          <DAppProvider config={{}}>
+            <NFTDetail />
+          </DAppProvider>
+        }
+      />
+      <Route
+        path="/creators"
+        element={
+          <DAppProvider config={{}}>
+            <Creators />
+          </DAppProvider>
+        }
+      />
+    </Routes>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 
