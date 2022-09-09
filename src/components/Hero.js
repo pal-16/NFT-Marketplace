@@ -9,9 +9,7 @@ const Hero = () => {
   const goExplore = () => {
     navigate("/explore");
   };
-  const goCreate = () => {
-    navigate("/create");
-  };
+
 
   return (
     <div id="hero">
@@ -27,7 +25,7 @@ const Hero = () => {
         <button id="explore" onClick={goExplore}>
           Explore
         </button>
-        <button id="create" onClick={goCreate}>Create</button>
+       
       </div>
     </div>
   );

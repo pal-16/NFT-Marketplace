@@ -35,6 +35,14 @@ ReactDOM.render(
       <Route
         path="/explore"
         element={
+          <DAppProvider>
+            <Create />
+          </DAppProvider>
+        }
+      />
+      <Route
+        path="/explore"
+        element={
           <DAppProvider config={{}}>
             <Explore />
           </DAppProvider>
