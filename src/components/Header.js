@@ -21,7 +21,7 @@ const Header = () => {
           <a>Dark NFTs</a>
           <a>Community</a>
           <a>Craft NFT</a>
-
+          <a>Creator</a>
           <button id="connect-wallet" onClick={handleWallet} >{!account ? 'Connect Wallet' : account}</button>
         </div>
       </div>
