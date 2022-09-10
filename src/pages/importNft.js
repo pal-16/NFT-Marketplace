@@ -9,7 +9,6 @@ import { Colors } from "../constants/Colors";
 import { AiOutlineSearch } from 'react-icons/ai';
 import Header from "../components/Header";
 import { useEthers, useEtherBalance } from "@usedapp/core";
-
 import React, { useEffect, useState, useContext } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
@@ -24,10 +23,15 @@ import {
     Button,
     Paper,
     useMediaQuery,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions
 } from "@material-ui/core";
-
+import { useNavigate } from 'react-router-dom';
 import FormField from "./FormField";
-import { Link, useHistory } from "react-router-dom";
+import { exploreList } from "../constants/MockupData";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,18 +69,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
 const Create = () => {
     const classes = useStyles();
-
+    const navigate = useNavigate()
     const theme = useTheme();
+    const [show, setShow] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
 
 
-
-    }, []);
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const [formData, setFormData] = useState(null);
     const [survey, setsurvey] = useState({
@@ -84,26 +85,38 @@ const Create = () => {
         title: "",
         description: "",
         reward: "",
-        occupation: "",
+        phase: "",
         gender: "",
+        address: "",
         field: [{ question: 'what is your name', options: ["palak", "jayati"] }]
     });
+
+
 
     const [errors, updateErrors] = useState({
         userID: "",
         title: "",
         description: "",
         reward: "",
-        occupation: "",
+        phase: "",
+        address: "",
         gender: "",
     });
 
 
     const [isRegistered, setIsRegistered] = useState(true);
     const handlesurvey = (e) => {
+        console.log({ target: e.target })
         setsurvey((prevsurvey) => ({
             ...prevsurvey,
-            [e.target.name]: e.target.value
+            phase: e.target.value
+        }));
+    };
+    const handleaddress = (e) => {
+        console.log({ target: e.target })
+        setsurvey((prevsurvey) => ({
+            ...prevsurvey,
+            address: e.target.value
         }));
     };
 
@@ -114,7 +127,7 @@ const Create = () => {
             title: "",
             description: "",
             reward: "",
-            occupation: "",
+            phase: "",
             gender: "",
         });
 
@@ -124,14 +137,63 @@ const Create = () => {
 
     const handleFormSubmit = (event) => {
 
-
+        if (survey.address == "0x9dC36499A0aB380eeaC69De651811B68beb0a783") {
+            setSuccess(true)
+        } else {
+            setShow(true)
+        }
 
     }
 
     return (
         <>
+            {<Dialog open={success}>
+                <DialogTitle>Success</DialogTitle>
+                <DialogContent>
 
+
+                    <Typography variant="body2" style={{ wordWrap: "break-word" }}>
+                        {"   The NFT has now been imported "}
+                    </Typography>
+
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                            navigate('/detail', { state: { item: exploreList[0] } })
+
+                        }}
+                    >
+                        Continue
+                    </Button>
+                </DialogActions>
+            </Dialog>}
+            {<Dialog open={show}>
+                <DialogTitle>Fail</DialogTitle>
+                <DialogContent>
+
+
+                    <Typography variant="body2" style={{ wordWrap: "break-word" }}>
+                        {"   The asset is already being used in another NFT"}
+                    </Typography>
+
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                            navigate('/explore');
+                        }}
+                    >
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>}
             <React.Fragment>
+                {/* <MiniAlert message="This is the cute alert" severity="error" /> */}
                 <Box
                     className={classes.root}
                     display="flex"
@@ -141,7 +203,7 @@ const Create = () => {
                 >
                     <Paper elevation={isSmallScreen ? 0 : 3} className={classes.paper}>
                         <div style={{ marginTop: "40px" }}>
-                            <Typography variant="h5">Import Existing </Typography>
+                            <Typography variant="h5">Import Existing Smart Contract </Typography>
                         </div>
 
                         <form className={classes.form} noValidate>
@@ -153,14 +215,14 @@ const Create = () => {
                                             variant="outlined"
                                             required
                                             className={classes.formControl}
-                                            error={errors.occupation.length !== 0}
+                                            error={errors.phase.length !== 0}
                                         >
-                                            <InputLabel id="occupation-label">Which project is your project in?</InputLabel>
+                                            <InputLabel id="phase-label">Which phase is your project in?</InputLabel>
                                             <Select
-                                                labelId="occupation-label"
-                                                id="occupation"
+                                                labelId="phase-label"
+                                                id="phase"
                                                 name="Which phase is your project in?"
-                                                value={survey.occupation}
+                                                value={survey.phase}
                                                 onChange={handlesurvey}
                                                 label="Which project is your project in?"
                                             >
@@ -186,8 +248,8 @@ const Create = () => {
                                 <FormField
                                     label="Address of ERC721 / ERC1155 contract on Testnet Network"
                                     name="description"
-                                    required={true}
-                                    onChange={handlesurvey}
+
+                                    onChange={handleaddress}
                                     error={errors.description}
                                 />
 
@@ -195,17 +257,22 @@ const Create = () => {
                                     onClick={handleFormSubmit}
                                     size="large"
                                     color="primary"
-                                    type="submit"
+                                    type="button"
                                     fullWidth
                                     variant="contained"
                                 >
                                     Submit
                                 </Button>
                             </div>
+
                         </form>
 
                     </Paper>
                 </Box>
+                <div>
+
+
+                </div>
             </React.Fragment>
         </>
     );

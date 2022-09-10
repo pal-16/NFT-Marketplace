@@ -20,12 +20,13 @@ const Hero = () => {
       <h1 id="header-text-first"> NFT </h1>
       <h1 id="header-text-second"> Dummy Marketplace</h1>
       <h5 id="header-subtext">Accet Protocol Compliant</h5>
-
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFBGHtgyUpbjKHO6k7vFTvDqWp54KzAhwQ8xYw0vU&s"></img>
       <div id="hero-buttons">
+
         <button id="explore" onClick={goExplore}>
           Explore
         </button>
-       
+
       </div>
     </div>
   );

@@ -29,11 +29,6 @@ const NFTCard = ({ username, nftName, price, nftSrc, likeCount, gradient, onClic
     setColors(c => [...c, ...colors]);
     //console.log(colors);
   }
-
-
-
-
-
   return (
     <Card
       blurColor={colors[0]}
