@@ -5,9 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Create from "./pages/Create";
 import Explore from "./pages/Explore";
-
+import Create from "./pages/importNft"
 //dapp
 import { DAppProvider } from "@usedapp/core";
 import NFTDetail from "./pages/NFTDetail";
@@ -24,16 +23,9 @@ ReactDOM.render(
           </DAppProvider>
         }
       />
+
       <Route
-        path="/create"
-        element={
-          <DAppProvider>
-            <Create />
-          </DAppProvider>
-        }
-      />
-      <Route
-        path="/explore"
+        path="/import"
         element={
           <DAppProvider>
             <Create />
